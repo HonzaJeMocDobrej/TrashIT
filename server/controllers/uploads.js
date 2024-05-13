@@ -53,6 +53,7 @@ const saveIntoDb = async (req, res) => {
             location: req.body.location,
             nameOfSeller: req.body.nameOfSeller,
             price: req.body.price,
+            category: req.body.category
             //imagePath: "http://localhost:3000/img/" + req.file.filename,
         });
         const result = await upload.save();
@@ -80,6 +81,7 @@ exports.updateUpload = async (req, res) => {
             location: req.body.location,
             nameOfSeller: req.body.nameOfSeller,
             price: req.body.price,
+            category: req.body.category
             //imagePath: "http://localhost:3000/img/" + req.file.filename,
         };
         const result = await Uploads.findByIdAndUpdate(req.params.id, upload);
