@@ -107,3 +107,9 @@ input[type="color"]:focus,
 span {
   
 }
+
+.formInput {
+  margin-top: 2rem;
+}
+
+
