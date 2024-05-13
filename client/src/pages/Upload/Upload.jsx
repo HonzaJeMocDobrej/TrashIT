@@ -45,7 +45,7 @@ export default function Upload() {
       <form encType="multipart/form-data" style={{ padding: "0 10%", paddingTop: '3.5rem' }}>
         <Dropdown />
         <p className="control has-icons-left formInput">
-          <input type="text" className="input" />
+          <input placeholder="Product" type="text" className="input" />
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -59,7 +59,7 @@ export default function Upload() {
           </span>
         </p>
         <p className="control has-icons-left formInput">
-          <input type="text" className="input" />
+          <input placeholder="Price" type="text" className="input" />
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -73,7 +73,7 @@ export default function Upload() {
           </span>
         </p>
         <p className="control has-icons-left formInput">
-          <input type="text" className="input" />
+          <input placeholder="Name" type="text" className="input" />
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -87,7 +87,7 @@ export default function Upload() {
           </span>
         </p>
         <p className="control has-icons-left formInput">
-          <input type="text" className="input" />
+          <input placeholder="Contact" type="text" className="input" />
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -101,7 +101,7 @@ export default function Upload() {
           </span>
         </p>
         <p className="control has-icons-left formInput">
-          <input type="text" className="input" />
+          <input placeholder="Location" type="text" className="input" />
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
