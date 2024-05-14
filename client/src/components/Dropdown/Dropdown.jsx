@@ -1,20 +1,14 @@
 import { useRef, useState } from "react";
 
 /* eslint-disable react/prop-types */
-function Dropdown() {
+function Dropdown(props) {
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-    const [dropdownDisplay, setDropdownDisplay] = useState('Select a category')
+    const {handleDropdownItemClick, dropdownDisplay, isDropdownOpen, setIsDropdownOpen} = props
+
 
     const handleDropdownButtonClick = (e) => {
          setIsDropdownOpen(prev => !prev)
          e.preventDefault()
-    }
-
-    const handleDropdownItemClick = (e) => {
-        console.log(e.target.name)
-        setDropdownDisplay(e.target.name)
-        setIsDropdownOpen(false)
     }
 
   return (
