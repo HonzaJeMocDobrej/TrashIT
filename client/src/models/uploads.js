@@ -30,10 +30,14 @@ export const getUpload = async (id) => {
     }
 }
 
-export const postUpload = async (formdata) => {
+export const postUpload = async (formData) => {
     const req = await fetch("http://localhost:3000/uploads", {
+    headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    },
     method: "POST",
-    body: formdata
+    body: JSON.stringify(formData)
 
     });
     const data = await req.json();
@@ -44,7 +48,7 @@ export const postUpload = async (formdata) => {
     }
 }
 export const updateUpload = async (id, formData) => {
-    const res = await fetch(`http://localhost:3000/uploads/${id}`, {
+    const req = await fetch(`http://localhost:3000/uploads/${id}`, {
         method: "PUT",
         headers: {
             Accept: "application/json",
@@ -52,26 +56,26 @@ export const updateUpload = async (id, formData) => {
         },
         body: JSON.stringify(formData)
     });
-    const data = await res.json();
-    return createUploadPayload(res, data);
+    const data = await req.json();
+    return createUploadPayload(req, data);
 }
 
 export const deleteUpload = async (id) => {
-    const res = await fetch(`http://localhost:3000/products/${id}`, {
+    const req = await fetch(`http://localhost:3000/uploads/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     });
-    const data = await res.json();
-    return createUploadPayload(res, data);
+    const data = await req.json();
+    return createUploadPayload(req, data);
   };
 
-  const createUploadPayload = (res, data) => {
+  const createUploadPayload = (req, data) => {
     return {
         msg: data.msg,
         data: data.payload,
-        status: res.status
+        status: req.status
     };
 };
