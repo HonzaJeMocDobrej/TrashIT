@@ -6,6 +6,8 @@ import Button from "../../components/Button/Button";
 
 export default function Upload() {
   const [formData, setFormData] = useState();
+  const [dropdownDisplay, setDropdownDisplay] = useState('Select a category')
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [info, setInfo] = useState();
   const navigate = useNavigate();
 
@@ -43,6 +45,19 @@ export default function Upload() {
     setInfo(upload.msg);
   };
 
+
+const handleDropdownItemClick = (e) => {
+   console.log(e.target.name)
+   setDropdownDisplay(e.target.name)
+   setFormData(prev => {
+    return {
+      ...prev,
+      'category': e.target.name
+    }
+   })
+   setIsDropdownOpen(false)
+}
+
   return (
     <>
       <div
@@ -73,7 +88,12 @@ export default function Upload() {
         encType="multipart/form-data"
         style={{ padding: "0 10%", paddingTop: "3.5rem" }}
       >
-        <Dropdown />
+        <Dropdown
+          handleDropdownItemClick={handleDropdownItemClick}
+          dropdownDisplay={dropdownDisplay}
+          isDropdownOpen={isDropdownOpen}
+          setIsDropdownOpen={setIsDropdownOpen}
+        />
         <div className="imageCont is-flex is-justify-content-left is-align-items-center" style={{gap: '5%', marginTop: '2rem'}}>
           <p className="control has-icons-left formInput">
           <input placeholder="Product" name="name" type="text" className="input" onChange={(e) => handleChange(e)}/>
