@@ -9,9 +9,24 @@ export default function Upload() {
   const [info, setInfo] = useState();
   const navigate = useNavigate();
 
+  const postForm = async () => {
+    const upload = await postUpload(formData);
+    if (upload.status === 201) {
+      navigate("/");
+    } else {
+      setInfo(upload.msg);
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData);
   };
+
+  const handlePost = (e) => {
+    e.preventDefault();
+    postForm();
+  }
 
   const handleImageChange = (e) => {
     setFormData({ ...formData, imageFile: e.target.files[0] });
@@ -61,7 +76,7 @@ export default function Upload() {
         <Dropdown />
         <div className="imageCont is-flex is-justify-content-left is-align-items-center" style={{gap: '5%', marginTop: '2rem'}}>
           <p className="control has-icons-left formInput">
-            <input placeholder="Product" type="text" className="input" />
+          <input placeholder="Product" name="name" type="text" className="input" onChange={(e) => handleChange(e)}/>
             <span
               className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
               style={{
@@ -94,7 +109,7 @@ export default function Upload() {
           </div>
         </div>
         <p className="control has-icons-left formInput">
-          <input placeholder="Price" type="text" className="input" />
+          <input placeholder="Price" name="price" type="text" className="input" onChange={(e) => handleChange(e)}/>
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -108,7 +123,7 @@ export default function Upload() {
           </span>
         </p>
         <p className="control has-icons-left formInput">
-          <input placeholder="Name" type="text" className="input" />
+          <input placeholder="Username" name="nameOfSeller" type="text" className="input" onChange={(e) => handleChange(e)}/>
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -122,7 +137,7 @@ export default function Upload() {
           </span>
         </p>
         <p className="control has-icons-left formInput">
-          <input placeholder="Contact" type="text" className="input" />
+          <input placeholder="Contact" name="contact" type="text" className="input" onChange={(e) => handleChange(e)}/>
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -136,7 +151,7 @@ export default function Upload() {
           </span>
         </p>
         <p className="control has-icons-left formInput">
-          <input placeholder="Location" type="text" className="input" />
+          <input placeholder="Location" name="location" type="text" className="input" onChange={(e) => handleChange(e)}/>
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -152,6 +167,7 @@ export default function Upload() {
         <button
           style={{ color: "#a31bf1", marginTop: "3rem", marginBottom: '3rem' }}
           className="button"
+          onClick={handlePost}
         >
           Submit
         </button>

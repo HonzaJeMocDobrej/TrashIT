@@ -20,7 +20,7 @@ const uploadsSchema = mongoose.Schema({
         type: String, required: false
     },
     category: {
-        type: String, required: true
+        type: String, required: false
     },
     date: {
         type: Date
