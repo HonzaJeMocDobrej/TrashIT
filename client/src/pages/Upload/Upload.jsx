@@ -30,34 +30,69 @@ export default function Upload() {
 
   return (
     <>
-    <div
+      <div
         className="columns is-flex is-justify-content-center is-align-items-center"
         style={{
           position: "fixed",
           zIndex: 1,
           width: "100%",
-          height: '4rem'
+          height: "4rem",
         }}
       >
-        <span className="material-symbols-outlined" onClick={() => navigate(-1)} style={{fontSize: '2rem', position: 'absolute', left: '2rem', cursor: 'pointer', userSelect: 'none'}}>keyboard_return</span>
+        <span
+          className="material-symbols-outlined"
+          onClick={() => navigate(-1)}
+          style={{
+            fontSize: "2rem",
+            position: "absolute",
+            left: "2rem",
+            cursor: "pointer",
+            userSelect: "none",
+          }}
+        >
+          keyboard_return
+        </span>
       </div>
 
-      <form encType="multipart/form-data" style={{ padding: "0 10%", paddingTop: '3.5rem' }}>
+      <form
+        encType="multipart/form-data"
+        style={{ padding: "0 10%", paddingTop: "3.5rem" }}
+      >
         <Dropdown />
-        <p className="control has-icons-left formInput">
-          <input placeholder="Product" type="text" className="input" />
-          <span
-            className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
-            style={{
-              fontSize: "1.25rem",
-              height: "40px",
-              width: "3rem",
-              color: "#a31bf1",
-            }}
-          >
-            inventory
-          </span>
-        </p>
+        <div className="imageCont is-flex is-justify-content-left is-align-items-center" style={{gap: '5%', marginTop: '2rem'}}>
+          <p className="control has-icons-left formInput">
+            <input placeholder="Product" type="text" className="input" />
+            <span
+              className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
+              style={{
+                fontSize: "1.25rem",
+                height: "40px",
+                width: "3rem",
+                color: "#a31bf1",
+              }}
+            >
+              inventory
+            </span>
+          </p>
+          <div className="file">
+            <label className="file-label">
+              <input className="file-input" type="file" name="resume" />
+              <span className="file-cta is-flex is-align-items-center is-justify-content-center" style={{gap: '.5rem'}}>
+              <span
+              className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
+              style={{
+                fontSize: "1.25rem",
+                width: "1rem",
+                color: "#a31bf1",
+              }}
+            >
+              inventory
+            </span>
+                <span className="file-label"> Image </span>
+              </span>
+            </label>
+          </div>
+        </div>
         <p className="control has-icons-left formInput">
           <input placeholder="Price" type="text" className="input" />
           <span
@@ -114,9 +149,12 @@ export default function Upload() {
             location_on
           </span>
         </p>
-      <button style={{color: '#a31bf1', marginTop: '3rem'}} className="button">
-        Submit
-      </button>
+        <button
+          style={{ color: "#a31bf1", marginTop: "3rem", marginBottom: '3rem' }}
+          className="button"
+        >
+          Submit
+        </button>
       </form>
       <p>{info}</p>
     </>

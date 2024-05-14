@@ -112,4 +112,9 @@ span {
   margin-top: 2rem;
 }
 
+.formInput:first-child {
+  margin-top: 0;
+  width: 90%;
+}
+
 
