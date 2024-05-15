@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { postUpload } from "../../models/uploads";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 
@@ -27,7 +27,8 @@ export default function Upload() {
 
   const handlePost = (e) => {
     e.preventDefault();
-    postForm();
+    // postForm();
+    console.log(formData)
   }
 
   const handleImageChange = (e) => {
@@ -38,9 +39,11 @@ export default function Upload() {
     e.preventDefault();
     const formDataToSend = new FormData();
     for (const [key, value] of Object.entries(formData)) {
-      formDataToSend.append(key, value);
+        formDataToSend.append(key, value);
     }
+    console.log(formDataToSend);
     const upload = await postUpload(formDataToSend);
+    if(!upload) return setInfo(upload.msg)
     if (upload.status === 201) return navigate("/");
     setInfo(upload.msg);
   };
@@ -57,6 +60,10 @@ const handleDropdownItemClick = (e) => {
    })
    setIsDropdownOpen(false)
 }
+
+useEffect(() => {
+  console.log(info)
+}, [info])
 
   return (
     <>
@@ -111,7 +118,7 @@ const handleDropdownItemClick = (e) => {
           </p>
           <div className="file">
             <label className="file-label">
-              <input className="file-input" type="file" name="resume" />
+              <input className="file-input" type="file" name="imageFile" onChange={(e) => handleImageChange(e)}/>
               <span className="file-cta is-flex is-align-items-center is-justify-content-center" style={{gap: '.5rem'}}>
               <span
               className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
@@ -129,7 +136,7 @@ const handleDropdownItemClick = (e) => {
           </div>
         </div>
         <p className="control has-icons-left formInput">
-          <input placeholder="Price" name="price" type="text" className="input" onChange={(e) => handleChange(e)}/>
+          <input placeholder="Price" name="price" type="number" className="input" onChange={(e) => handleChange(e)}/>
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -157,7 +164,7 @@ const handleDropdownItemClick = (e) => {
           </span>
         </p>
         <p className="control has-icons-left formInput">
-          <input placeholder="Contact" name="contact" type="text" className="input" onChange={(e) => handleChange(e)}/>
+          <input placeholder="Contact" name="contact" type="number" className="input" onChange={(e) => handleChange(e)}/>
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
@@ -187,7 +194,7 @@ const handleDropdownItemClick = (e) => {
         <button
           style={{ color: "#a31bf1", marginTop: "3rem", marginBottom: '3rem' }}
           className="button"
-          onClick={handlePost}
+          onClick={submit}
         >
           Submit
         </button>
