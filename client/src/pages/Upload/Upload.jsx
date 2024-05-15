@@ -37,13 +37,17 @@ export default function Upload() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if(!formData)  {
+      return setInfo('Something is missing')
+    }
+
     const formDataToSend = new FormData();
     for (const [key, value] of Object.entries(formData)) {
         formDataToSend.append(key, value);
     }
     console.log(formDataToSend);
     const upload = await postUpload(formDataToSend);
-    if(!upload) return setInfo(upload.msg)
+    if(upload.status == 400 || upload.status == 500) return setInfo(upload.msg)
     if (upload.status === 201) return navigate("/");
     setInfo(upload.msg);
   };
@@ -62,7 +66,12 @@ const handleDropdownItemClick = (e) => {
 }
 
 useEffect(() => {
-  console.log(info)
+  const timeout = setTimeout(() => {
+    setInfo('')
+  }, 5000)
+  return () => {
+    clearTimeout(timeout);
+  };
 }, [info])
 
   return (
@@ -199,7 +208,7 @@ useEffect(() => {
           Submit
         </button>
       </form>
-      <p>{info}</p>
+      <p className="is-flex is-align-items-center is-justify-content-center" style={{color: 'red'}}>{info}</p>
     </>
   );
 }

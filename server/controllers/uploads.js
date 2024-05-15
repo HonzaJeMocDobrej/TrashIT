@@ -47,13 +47,19 @@ const saveFileIntoFolder = (req, res, next) => {
 
 const saveIntoDb = async (req, res) => {
     try {
+
+        const {name, contact, location, nameOfSeller, price, category} = req.body
+
+        if (!name, !contact, !location, !nameOfSeller, !price, !category, !req.file)
+            return res.status(400).send({msg: 'Something is missing'})
+
         const upload = new Uploads({
-            name: req.body.name,
-            contact: req.body.contact,
-            location: req.body.location,
-            nameOfSeller: req.body.nameOfSeller,
-            price: req.body.price,
-            category: req.body.category,
+            name: name,
+            contact: contact,
+            location: location,
+            nameOfSeller: nameOfSeller,
+            price: price,
+            category: category,
             imagePath: "http://localhost:3000/img/" + req.file.filename,
         });
         const result = await upload.save();
@@ -63,7 +69,7 @@ const saveIntoDb = async (req, res) => {
                 payload: result
             })
         }
-        return res.status(500).send({msg: "nejde nic"});
+        return res.status(500).send({msg: "Something went wrong"});
 
     } catch (error) {
         console.log(error);
