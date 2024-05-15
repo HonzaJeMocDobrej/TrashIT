@@ -16,4 +16,6 @@ router.put('/:id', uploadsController.updateUpload);
 
 router.delete('/:id', uploadsController.deleteUpload)
 
+router.delete('/', uploadsController.deleteAllUploads)
+
 module.exports = router;

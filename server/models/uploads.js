@@ -5,7 +5,7 @@ const uploadsSchema = mongoose.Schema({
         type: String, required: true
     },
     contact: {
-        type: String, required: true
+        type: Number, required: true
     },
     location: {
         type: String, required: true
@@ -14,7 +14,7 @@ const uploadsSchema = mongoose.Schema({
         type: String, required: true
     },
     price: {
-        type: String, required: true
+        type: Number, required: true
     },
     imagePath: {
         type: String, required: false

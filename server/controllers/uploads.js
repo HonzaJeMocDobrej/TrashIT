@@ -53,8 +53,8 @@ const saveIntoDb = async (req, res) => {
             location: req.body.location,
             nameOfSeller: req.body.nameOfSeller,
             price: req.body.price,
-            category: req.body.category
-            //imagePath: "http://localhost:3000/img/" + req.file.filename,
+            category: req.body.category,
+            imagePath: "http://localhost:3000/img/" + req.file.filename,
         });
         const result = await upload.save();
         if(result){
@@ -103,6 +103,25 @@ exports.updateUpload = async (req, res) => {
 exports.deleteUpload = async (req, res) => {
     try {
         const data = await Uploads.findByIdAndDelete(req.params.id);
+        if(data){
+            return res.status(200).send({
+                msg: "Upload deleted",
+                payload: data,
+            });
+        }
+        res.status(500).send({
+            msg: "Error"
+        });
+    } catch (error) {
+        res.status(500).send({
+            error,
+        });
+    }
+}
+
+exports.deleteAllUploads = async (req, res) => {
+    try {
+        const data = await Uploads.deleteMany();
         if(data){
             return res.status(200).send({
                 msg: "Upload deleted",
