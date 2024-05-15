@@ -9,6 +9,7 @@ export default function Upload() {
   const [dropdownDisplay, setDropdownDisplay] = useState('Select a category')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [info, setInfo] = useState();
+  const [seconds, setSeconds] = useState(0);
   const navigate = useNavigate();
 
   const postForm = async () => {
@@ -23,6 +24,7 @@ export default function Upload() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     console.log(formData);
+    setInfo("");
   };
 
   const handlePost = (e) => {
@@ -43,9 +45,12 @@ export default function Upload() {
     }
     console.log(formDataToSend);
     const upload = await postUpload(formDataToSend);
-    if(!upload) return setInfo(upload.msg)
+    if(!upload) return setInfo("gg")
     if (upload.status === 201) return navigate("/");
-    setInfo(upload.msg);
+    setInfo("dojebal");
+    setTimeout(() => {
+      setInfo("");
+    }, 5000);
   };
 
 
@@ -62,8 +67,9 @@ const handleDropdownItemClick = (e) => {
 }
 
 useEffect(() => {
-  console.log(info)
-}, [info])
+
+  }, [info]);
+
 
   return (
     <>
