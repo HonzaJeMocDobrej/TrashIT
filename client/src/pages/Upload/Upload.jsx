@@ -28,7 +28,7 @@ export default function Upload() {
   const handlePost = (e) => {
     e.preventDefault();
     // postForm();
-    console.log(formData)
+    //console.log(formData)
   }
 
   const handleImageChange = (e) => {
