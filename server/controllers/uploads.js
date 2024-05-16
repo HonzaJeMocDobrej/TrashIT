@@ -53,6 +53,11 @@ const saveIntoDb = async (req, res) => {
         if (!name, !contact, !location, !nameOfSeller, !price, !category, !req.file)
             return res.status(400).send({msg: 'Something is missing'})
 
+        console.log(typeof contact)
+
+        if (typeof contact != "string" ) return res.status(400).send({msg: 'contact should be type number'})
+        if (typeof price != 'string') return res.status(400).send({msg: 'price should be type number'})
+
         const upload = new Uploads({
             name: name,
             contact: contact,

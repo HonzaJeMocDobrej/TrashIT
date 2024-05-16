@@ -21,6 +21,9 @@ export default function Upload() {
   };
 
   const handleChange = (e) => {
+    if (e.target.name == 'contact') {
+      console.log(e.target.value)
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
     console.log(formData);
   };
