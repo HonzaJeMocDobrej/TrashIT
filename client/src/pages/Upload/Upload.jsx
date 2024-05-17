@@ -8,6 +8,7 @@ export default function Upload() {
   const [formData, setFormData] = useState();
   const [dropdownDisplay, setDropdownDisplay] = useState('Select a category')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [imagePath, setImagePath] = useState('')
   const [info, setInfo] = useState();
   const navigate = useNavigate();
 
@@ -28,22 +29,26 @@ export default function Upload() {
   const handlePost = (e) => {
     e.preventDefault();
     // postForm();
-    console.log(formData)
+    //console.log(formData)
   }
 
   const handleImageChange = (e) => {
     setFormData({ ...formData, imageFile: e.target.files[0] });
+    setImagePath(URL.createObjectURL(e.target.files[0]))
   };
 
   const submit = async (e) => {
     e.preventDefault();
+    if(!formData)  {
+      return setInfo('Something is missing')
+    }
     const formDataToSend = new FormData();
     for (const [key, value] of Object.entries(formData)) {
         formDataToSend.append(key, value);
     }
     console.log(formDataToSend);
     const upload = await postUpload(formDataToSend);
-    if(!upload) return setInfo(upload.msg)
+    if(upload.status === 400 || upload.status === 500) return setInfo(upload.msg)
     if (upload.status === 201) return navigate("/");
     setInfo(upload.msg);
   };
@@ -62,8 +67,17 @@ const handleDropdownItemClick = (e) => {
 }
 
 useEffect(() => {
-  console.log(info)
-}, [info])
+  const timeout = setTimeout(() => {
+    setInfo("")
+  }, 5000)
+  return () => {
+    clearTimeout(timeout);
+  };
+  }, [info]);
+
+useEffect(()=>{
+  setInfo("");
+},[formData]);
 
   return (
     <>
@@ -101,6 +115,11 @@ useEffect(() => {
           isDropdownOpen={isDropdownOpen}
           setIsDropdownOpen={setIsDropdownOpen}
         />
+        {imagePath ? 
+        <div className="uploadImageCont">
+          <img src={imagePath}></img>
+        </div> : 
+        null}
         <div className="imageCont is-flex is-justify-content-left is-align-items-center" style={{gap: '5%', marginTop: '2rem'}}>
           <p className="control has-icons-left formInput">
           <input placeholder="Product" name="name" type="text" className="input" onChange={(e) => handleChange(e)}/>
@@ -199,7 +218,8 @@ useEffect(() => {
           Submit
         </button>
       </form>
-      <p>{info}</p>
+      <p className="is-flex is-align-items-center is-justify-content-center" style={{color: 'red', marginBottom: '2rem'}}>{info}</p>
+      
     </>
   );
 }

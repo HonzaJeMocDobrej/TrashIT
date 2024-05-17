@@ -46,6 +46,15 @@ const saveFileIntoFolder = (req, res, next) => {
 }
 
 const saveIntoDb = async (req, res) => {
+    const {name, contact, location, nameOfSeller, price, category} = req.body;
+
+    if(!name, !contact, !location, !nameOfSeller, !price, !category, !req.file)
+        return res.status(400).send({msg: "Something is missing"})
+
+    //demon
+    if (typeof contact != "string" ) return res.status(400).send({msg: 'contact should be type number'})
+    if (typeof price != "string") return res.status(400).send({msg: 'price should be type number'})
+
     try {
         const upload = new Uploads({
             name: req.body.name,
