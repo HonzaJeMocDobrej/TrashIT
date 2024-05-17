@@ -117,4 +117,18 @@ span {
   width: 90%;
 }
 
+.uploadImageCont {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.uploadImageCont img {
+  max-width: 50%;
+  max-height: 15rem;
+  border-radius: 2vw;
+}
+
 

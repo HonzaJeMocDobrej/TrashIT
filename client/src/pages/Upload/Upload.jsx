@@ -8,7 +8,7 @@ export default function Upload() {
   const [formData, setFormData] = useState();
   const [dropdownDisplay, setDropdownDisplay] = useState('Select a category')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [test, setTest] = useState('')
+  const [imagePath, setImagePath] = useState('')
   const [info, setInfo] = useState();
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ export default function Upload() {
 
   const handleImageChange = (e) => {
     setFormData({ ...formData, imageFile: e.target.files[0] });
-    setTest(URL.createObjectURL(e.target.files[0]))
+    setImagePath(URL.createObjectURL(e.target.files[0]))
   };
 
   const submit = async (e) => {
@@ -115,6 +115,11 @@ useEffect(()=>{
           isDropdownOpen={isDropdownOpen}
           setIsDropdownOpen={setIsDropdownOpen}
         />
+        {imagePath ? 
+        <div className="uploadImageCont">
+          <img src={imagePath}></img>
+        </div> : 
+        null}
         <div className="imageCont is-flex is-justify-content-left is-align-items-center" style={{gap: '5%', marginTop: '2rem'}}>
           <p className="control has-icons-left formInput">
           <input placeholder="Product" name="name" type="text" className="input" onChange={(e) => handleChange(e)}/>
@@ -149,7 +154,6 @@ useEffect(()=>{
             </label>
           </div>
         </div>
-        {test ? <img src={test}></img> : null}
         <p className="control has-icons-left formInput">
           <input placeholder="Price" name="price" type="number" className="input" onChange={(e) => handleChange(e)}/>
           <span
@@ -214,7 +218,7 @@ useEffect(()=>{
           Submit
         </button>
       </form>
-      <p className="is-flex is-align-items-center is-justify-content-center" style={{color: 'red'}}>{info}</p>
+      <p className="is-flex is-align-items-center is-justify-content-center" style={{color: 'red', marginBottom: '2rem'}}>{info}</p>
       
     </>
   );
