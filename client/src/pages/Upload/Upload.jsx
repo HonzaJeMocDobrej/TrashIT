@@ -8,6 +8,7 @@ export default function Upload() {
   const [formData, setFormData] = useState();
   const [dropdownDisplay, setDropdownDisplay] = useState('Select a category')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [test, setTest] = useState('')
   const [info, setInfo] = useState();
   const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ export default function Upload() {
 
   const handleImageChange = (e) => {
     setFormData({ ...formData, imageFile: e.target.files[0] });
+    setTest(URL.createObjectURL(e.target.files[0]))
   };
 
   const submit = async (e) => {
@@ -147,6 +149,7 @@ useEffect(()=>{
             </label>
           </div>
         </div>
+        {test ? <img src={test}></img> : null}
         <p className="control has-icons-left formInput">
           <input placeholder="Price" name="price" type="number" className="input" onChange={(e) => handleChange(e)}/>
           <span
