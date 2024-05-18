@@ -211,7 +211,7 @@ useEffect(()=>{
           </span>
         </p>
         <p className="control has-icons-left formInput">
-          <input placeholder="Password" name="password" type="text" className="input" onChange={(e) => handleChange(e)}/>
+          <input placeholder="Password" name="password" type="password" className="input" onChange={(e) => handleChange(e)}/>
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
             style={{
