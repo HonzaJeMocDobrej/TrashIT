@@ -22,6 +22,9 @@ const uploadsSchema = mongoose.Schema({
     category: {
         type: String, required: false
     },
+    password: {
+        type: String, required: true
+    },
     date: {
         type: Date
     },

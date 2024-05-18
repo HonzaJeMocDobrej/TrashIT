@@ -107,7 +107,6 @@ function Home() {
         icon={'router'}
         title={'Networking'}
       />
-  
     </div>
     </>
   )

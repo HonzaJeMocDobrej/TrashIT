@@ -1,5 +1,7 @@
 const imageController = require("./image");
 const Uploads = require("../models/uploads")
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 exports.getUploads = async (req, res) => {
   try {
@@ -46,9 +48,9 @@ const saveFileIntoFolder = (req, res, next) => {
 }
 
 const saveIntoDb = async (req, res) => {
-    const {name, contact, location, nameOfSeller, price, category} = req.body;
+    const {name, contact, location, nameOfSeller, price, category, password} = req.body;;
 
-    if(!name, !contact, !location, !nameOfSeller, !price, !category, !req.file)
+    if(!name, !contact, !location, !nameOfSeller, !price, !category, !password, !req.file)
         return res.status(400).send({msg: "Something is missing"})
 
     //demon
@@ -63,6 +65,7 @@ const saveIntoDb = async (req, res) => {
             nameOfSeller: req.body.nameOfSeller,
             price: req.body.price,
             category: req.body.category,
+            password: bcrypt.hashSync(req.body.password, saltRounds),
             imagePath: "http://localhost:3000/img/" + req.file.filename,
         });
         const result = await upload.save();
@@ -90,7 +93,8 @@ exports.updateUpload = async (req, res) => {
             location: req.body.location,
             nameOfSeller: req.body.nameOfSeller,
             price: req.body.price,
-            category: req.body.category
+            category: req.body.category,
+            password: bcrypt.hashSync(req.body.password, saltRounds),
             //imagePath: "http://localhost:3000/img/" + req.file.filename,
         };
         const result = await Uploads.findByIdAndUpdate(req.params.id, upload);
@@ -109,18 +113,20 @@ exports.updateUpload = async (req, res) => {
     }
 }
 
+// S láskou Fida <3
 exports.deleteUpload = async (req, res) => {
     try {
-        const data = await Uploads.findByIdAndDelete(req.params.id);
-        if(data){
-            return res.status(200).send({
-                msg: "Upload deleted",
-                payload: data,
-            });
-        }
-        res.status(500).send({
-            msg: "Error"
-        });
+        if(!req.body.password) return res.status(400).send({msg: "Something is missing"});
+        
+        const data = await Uploads.findById(req.params.id);
+        const match = await bcrypt.compare(req.body.password, data.password);
+
+        if(!match) return res.status(400).send({msg: "Passwords do not match"});
+        const deletedUpload = await Uploads.findByIdAndDelete(req.params.id);
+
+        if(!deletedUpload) return res.status(500).send({msg: "Something went wrong"});
+        return res.status(200).send({msg: "Succesful", payload: deletedUpload});
+
     } catch (error) {
         res.status(500).send({
             error,
