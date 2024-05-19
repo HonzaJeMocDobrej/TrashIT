@@ -224,6 +224,20 @@ useEffect(()=>{
             key
           </span>
         </p>
+        <p className="control has-icons-left formInput">
+          <input placeholder="Confirm password" name="passwordAuth" type="password" className="input" onChange={(e) => handleChange(e)}/>
+          <span
+            className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
+            style={{
+              fontSize: "1.25rem",
+              height: "40px",
+              width: "3rem",
+              color: "#a31bf1",
+            }}
+          >
+            key
+          </span>
+        </p>
         <button
           style={{ color: "#a31bf1", marginTop: "3rem", marginBottom: '3rem' }}
           className="button"

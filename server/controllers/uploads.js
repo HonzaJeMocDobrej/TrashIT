@@ -37,21 +37,23 @@ exports.getUpload = async (req, res) => {
 const uploadFile = imageController.upload.single("imageFile");
 
 const saveFileIntoFolder = (req, res, next) => {
-    uploadFile(req, res, (err) => {
+     uploadFile(req, res, (err) => {
       if(err){
         console.log(err);
             return res.status(500).send(err);
       }
-      console.log("File uploaded!")
+        console.log("File uploaded!")
         next();
     });
 }
 
 const saveIntoDb = async (req, res) => {
-    const {name, contact, location, nameOfSeller, price, category, password} = req.body;;
+    const {name, contact, location, nameOfSeller, price, category, password, passwordAuth} = req.body;
 
-    if(!name, !contact, !location, !nameOfSeller, !price, !category, !password, !req.file)
+    if(!name, !contact, !location, !nameOfSeller, !price, !category, !password, !passwordAuth, !req.file)
         return res.status(400).send({msg: "Something is missing"})
+    
+    if(password != passwordAuth) return res.status(400).send({msg: "password should be the same"})
 
     //demon
     if (typeof contact != "string" ) return res.status(400).send({msg: 'contact should be type number'})
@@ -68,7 +70,7 @@ const saveIntoDb = async (req, res) => {
             password: bcrypt.hashSync(req.body.password, saltRounds),
             imagePath: "http://localhost:3000/img/" + req.file.filename,
         });
-        const result = await upload.save();
+        const result = await upload.save(); 
         if(result){
             return res.status(201).send({
                 msg: "Upload uploaded",
@@ -76,7 +78,6 @@ const saveIntoDb = async (req, res) => {
             })
         }
         return res.status(500).send({msg: "nejde nic"});
-
     } catch (error) {
         console.log(error);
         res.status(500).send({
