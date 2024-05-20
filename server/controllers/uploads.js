@@ -39,7 +39,18 @@ const uploadFile = imageController.upload.single("imageFile");
 const saveFileIntoFolder = (req, res, next) => {
      uploadFile(req, res, (err) => {
       if(err){
-        console.log(err);
+            switch(err.message) {
+                case "Something is missing":
+                    return res.status(400).send({msg: 'Something is missing'})
+                case "password should be the same":
+                    return res.status(400).send({msg: 'Passwords should be same'})
+                case "contact should be type number":
+                    return res.status(400).send({msg: 'Contact should be type number'})
+                case "price should be type number":
+                    return res.status(400).send({msg: 'Price should be type number'})
+                case "File not found":
+                    return res.status(400).send({msg: 'File not found'})
+            }
             return res.status(500).send(err);
       }
         console.log("File uploaded!")
@@ -48,18 +59,9 @@ const saveFileIntoFolder = (req, res, next) => {
 }
 
 const saveIntoDb = async (req, res) => {
-    const {name, contact, location, nameOfSeller, price, category, password, passwordAuth} = req.body;
-
-    if(!name, !contact, !location, !nameOfSeller, !price, !category, !password, !passwordAuth, !req.file)
-        return res.status(400).send({msg: "Something is missing"})
-    
-    if(password != passwordAuth) return res.status(400).send({msg: "password should be the same"})
-
-    //demon
-    if (typeof contact != "string" ) return res.status(400).send({msg: 'contact should be type number'})
-    if (typeof price != "string") return res.status(400).send({msg: 'price should be type number'})
-
+ 
     try {
+        if (!req.file) return res.status(400).send({msg: 'File not found'})
         const upload = new Uploads({
             name: req.body.name,
             contact: req.body.contact,
@@ -154,5 +156,5 @@ exports.deleteAllUploads = async (req, res) => {
     }
 }
 
-
 exports.postUpload = [saveFileIntoFolder, saveIntoDb];
+

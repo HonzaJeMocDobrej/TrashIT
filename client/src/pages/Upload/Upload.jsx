@@ -1,16 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import { postUpload } from "../../models/uploads";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 
 export default function Upload() {
   const [formData, setFormData] = useState();
+  const [imgData, setImgData] = useState()
   const [dropdownDisplay, setDropdownDisplay] = useState('Select a category')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [imagePath, setImagePath] = useState('')
   const [info, setInfo] = useState();
   const navigate = useNavigate();
+
+  const imgInputRef = useRef()
 
   const postForm = async () => {
     const upload = await postUpload(formData);
@@ -23,7 +26,6 @@ export default function Upload() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
   };
 
   const handlePost = (e) => {
@@ -33,7 +35,7 @@ export default function Upload() {
   }
 
   const handleImageChange = (e) => {
-    setFormData({ ...formData, imageFile: e.target.files[0] });
+    setImgData(e.target.files[0])
     setImagePath(URL.createObjectURL(e.target.files[0]))
   };
 
@@ -43,10 +45,11 @@ export default function Upload() {
       return setInfo('Something is missing')
     }
     const formDataToSend = new FormData();
+
     for (const [key, value] of Object.entries(formData)) {
         formDataToSend.append(key, value);
     }
-    console.log(formDataToSend);
+    formDataToSend.append('imageFile', imgInputRef.current.files[0])
     const upload = await postUpload(formDataToSend);
     if(upload.status === 400 || upload.status === 500) return setInfo(upload.msg)
     if (upload.status === 201) return navigate("/");
@@ -55,7 +58,6 @@ export default function Upload() {
 
 
 const handleDropdownItemClick = (e) => {
-   console.log(e.target.name)
    setDropdownDisplay(e.target.name)
    setFormData(prev => {
     return {
@@ -137,7 +139,7 @@ useEffect(()=>{
           </p>
           <div className="file">
             <label className="file-label">
-              <input className="file-input" type="file" name="imageFile" onChange={(e) => handleImageChange(e)}/>
+              <input ref={imgInputRef} className="file-input" type="file" name="imageFile" onChange={(e) => handleImageChange(e)}/>
               <span className="file-cta is-flex is-align-items-center is-justify-content-center" style={{gap: '.5rem'}}>
               <span
               className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
