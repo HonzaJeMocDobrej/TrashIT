@@ -12,6 +12,7 @@ router.get('/:id', uploadsController.getUpload);
 /* Create user upload. */
 router.post('/', uploadsController.postUpload);
 
+
 router.put('/:id', uploadsController.updateUpload);
 
 router.delete('/:id', uploadsController.deleteUpload)

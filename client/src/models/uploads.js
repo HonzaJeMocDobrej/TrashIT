@@ -31,7 +31,6 @@ export const getUpload = async (id) => {
 }
 
 export const postUpload = async (formData) => {
-    console.log(formData);
     const req = await fetch("http://localhost:3000/uploads", {
         method: "POST",
         body: formData
