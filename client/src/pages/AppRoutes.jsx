@@ -3,6 +3,7 @@ import Home from "./Home/Home"
 import Upload from "./Upload/Upload"
 import Products from "./Products/Products"
 import ProductItem from "./ProductItem/ProductItem"
+import Category from "./Category/Category"
 
 export default function AppRoutes() {
   return (
@@ -10,8 +11,8 @@ export default function AppRoutes() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home></Home>}/>
-                <Route path="/products" element={<Products></Products>}/>
-                <Route path="/products/:id" element={<ProductItem></ProductItem>}/>
+                <Route path="/:category" element={<Category></Category>}/>
+                <Route path="/:category/:id" element={<ProductItem></ProductItem>}/>
                 <Route path="/upload" element={<Upload></Upload>}/>
             </Routes>
         </BrowserRouter>

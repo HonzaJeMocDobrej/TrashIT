@@ -11,8 +11,8 @@ const storage = multer.diskStorage({
 });
 
 const filter = (req, file, cb) => {
-     const {name, contact, location, nameOfSeller, price, category, password, passwordAuth} = req.body;
-    if(!name, !contact, !location, !nameOfSeller, !price, !category, !password, !passwordAuth)
+     const {name, contact, location, nameOfSeller, price, description, category, password, passwordAuth} = req.body;
+    if(!name, !contact, !location, !nameOfSeller, !price, !description, !category, !password, !passwordAuth)
         return cb(new Error("Something is missing"))
 
     
