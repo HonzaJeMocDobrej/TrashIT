@@ -1,15 +1,20 @@
 /* eslint-disable react/prop-types */
 
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 function ProductCard(props) {
 
-    const {name, description, imagePath, price} = props
+    const {name, description, imagePath, price, _id} = props
     const navigate = useNavigate()
 
     const handleClickNav = () => {
-      navigate(`/products/${1}`)
+      navigate(`/products/${_id}`)
     }
+
+    useEffect(() => {
+      console.log(_id)
+    }, [])
 
   return (
     <>

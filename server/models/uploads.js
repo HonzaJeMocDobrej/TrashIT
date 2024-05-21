@@ -16,6 +16,9 @@ const uploadsSchema = mongoose.Schema({
     price: {
         type: Number, required: true
     },
+    description: {
+        type: String, required: true
+    },
     imagePath: {
         type: String, required: true
     },

@@ -10,8 +10,8 @@ export default function AppRoutes() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home></Home>}/>
-                <Route path="/products" element={<Products></Products>}/>
-                <Route path="/products/:id" element={<ProductItem></ProductItem>}/>
+                <Route path="/:category" element={<Products></Products>}/>
+                <Route path="/:category/:id" element={<ProductItem></ProductItem>}/>
                 <Route path="/upload" element={<Upload></Upload>}/>
             </Routes>
         </BrowserRouter>

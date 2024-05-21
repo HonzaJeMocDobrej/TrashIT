@@ -157,6 +157,20 @@ useEffect(()=>{
           </div>
         </div>
         <p className="control has-icons-left formInput">
+          <input placeholder="Description" name="description" type="text" className="input" onChange={(e) => handleChange(e)}/>
+            <span
+              className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
+              style={{
+                fontSize: "1.25rem",
+                height: "40px",
+                width: "3rem",
+                color: "#a31bf1",
+              }}
+            >
+              book
+            </span>
+          </p>
+        <p className="control has-icons-left formInput">
           <input placeholder="Price" name="price" type="number" className="input" onChange={(e) => handleChange(e)}/>
           <span
             className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
