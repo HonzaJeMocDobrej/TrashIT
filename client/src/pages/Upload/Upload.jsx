@@ -35,6 +35,13 @@ export default function Upload() {
   }
 
   const handleImageChange = (e) => {
+    console.log(e.target.files[0].name);
+    const name = e.target.files[0].name
+    const nameArr = name.split('.')
+    console.log(nameArr)
+
+    //dodelat checkovani spravnych koncovek
+
     setImgData(e.target.files[0])
     setImagePath(URL.createObjectURL(e.target.files[0]))
   };

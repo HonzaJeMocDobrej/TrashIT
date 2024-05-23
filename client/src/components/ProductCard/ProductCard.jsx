@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import notFoundImg from '../../../public/imgNotFound.png'
+import { imgChecker } from "../../functions/imgChecker"
 
 function ProductCard(props) {
 
     const {name, description, imagePath, price, _id} = props
     const navigate = useNavigate()
+    const [rightImg, setRightImg] = useState()
 
     const handleClickNav = () => {
       navigate(`/products/${_id}`)
@@ -14,6 +17,7 @@ function ProductCard(props) {
 
     useEffect(() => {
       console.log(_id)
+      imgChecker(imagePath, notFoundImg, setRightImg)
     }, [])
 
   return (
@@ -24,7 +28,7 @@ function ProductCard(props) {
                 <div className="block is-flex" style={{margin: 0, flex: 6, gap: '3rem'}}>
                   <figure className="image">
                     <img
-                      src={imagePath}
+                      src={rightImg}
                       alt=""
                     />
                   </figure>
