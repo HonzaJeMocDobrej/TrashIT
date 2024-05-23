@@ -81,6 +81,30 @@ function Dropdown(props) {
               {" "}
               Networking{" "}
             </a>
+            <a onClick={handleDropdownItemClick} name="Phone" className="dropdown-item">
+              {" "}
+              Phone{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Cable" className="dropdown-item">
+              {" "}
+              Cable{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Games" className="dropdown-item">
+              {" "}
+              Games{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="PowerSupply" className="dropdown-item">
+              {" "}
+              PowerSupply{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Printer" className="dropdown-item">
+              {" "}
+              Printer{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Cooling" className="dropdown-item">
+              {" "}
+              Cooling{" "}
+            </a>
           </div>
         </div>
       </div>

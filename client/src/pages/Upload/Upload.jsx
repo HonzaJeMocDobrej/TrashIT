@@ -39,11 +39,14 @@ export default function Upload() {
     const name = e.target.files[0].name
     const nameArr = name.split('.')
     console.log(nameArr)
-
+    if(nameArr[1] =="png" || nameArr[1] =="jpg" || nameArr[1] =="jpeg" || nameArr[1] =="webm" 
+      || nameArr[1] =="gif" || nameArr[1] =="svg+xml" || nameArr[1] =="webp"){
+          setImgData(e.target.files[0])
+          setImagePath(URL.createObjectURL(e.target.files[0]))
+      }
+    else return setInfo("Wrong file format");
     //dodelat checkovani spravnych koncovek
-
-    setImgData(e.target.files[0])
-    setImagePath(URL.createObjectURL(e.target.files[0]))
+    // :3
   };
 
   const submit = async (e) => {

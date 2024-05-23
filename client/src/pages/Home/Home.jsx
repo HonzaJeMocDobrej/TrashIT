@@ -107,6 +107,30 @@ function Home() {
         icon={'router'}
         title={'Networking'}
       />
+      <Card
+        icon={'smartphone'}
+        title={'Phone'}
+      />
+      <Card
+        icon={'cable'}
+        title={'Cable'}
+      />
+      <Card
+        icon={'joystick'}
+        title={'Games'}
+      />
+      <Card
+        icon={'power'}
+        title={'PowerSupply'}
+      />
+      <Card
+        icon={'print'}
+        title={'Printer'}
+      />
+      <Card
+        icon={'cloud'}
+        title={'Cooling'}
+      />
     </div>
     </>
   )
