@@ -12,8 +12,8 @@ function Product() {
   const [rightImg, setRightImg] = useState();
   const [isLoaded, setLoaded] = useState(false);
   const [formData, setFormData] = useState();
+  const [info, setInfo] = useState('');
   const navigate = useNavigate()
-  const salt = 10;
 
   const load = async () => {
     const data = await getUpload(id);
@@ -27,19 +27,16 @@ function Product() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData)
+    console.log(formData, id)
   };
 
   //dodelat pls
   const deletePost = async () => {
     try {
-      const data = await getUpload(id);
-      if (data.payload.password === formData) {
-        await deleteUpload(id);
-        navigate('/');
-      } else {
-        console.error('Incorrect password');
-      }
+        const deleted = await deleteUpload(id, formData)
+        .catch(err => setInfo(err.response.data.msg))
+        if (deleted.status == 200) return navigate(-1)
+        
     } catch (error) {
       console.error('Error deleting post:', error);
     }
@@ -51,15 +48,25 @@ function Product() {
     console.log(uploads)
   }, [])
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setInfo("")
+    }, 5000)
+    return () => {
+      clearTimeout(timeout);
+    };
+    }, [info]);
+  
+  // useEffect(()=>{
+  //   setInfo("");
+  // },[formData]);
+
   if(isLoaded === null){
     return (
       <>
       <StickySearchMenu />
       <div className="main-div">
-          <h1>No nic, je to over</h1>
-          <Link to={"/upload"}>
-              <button>přidat inzerát</button>
-          </Link>
+          <h1 className="title is-3" style={{textAlign: 'center', paddingTop: '8rem'}}>Product doesnt exist</h1>
       </div>
       </>
     )
@@ -82,7 +89,7 @@ function Product() {
             <p className="subtitle is-5" style={{marginTop: '5rem'}}>{uploads.description}</p>
             <div className="imageCont is-flex is-justify-content-left is-align-items-center" style={{gap: '2%', marginTop: '2rem'}}>
               <p className="control has-icons-left formInput">
-                <input placeholder="Enter password for deleting this post" name="description" type="text" className="input" onChange={(e) => handleChange(e)}/>
+                <input placeholder="Enter password for deleting this post" name="password" type="text" className="input" onChange={(e) => handleChange(e)}/>
                 <span
                   className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
                   style={{
@@ -104,6 +111,7 @@ function Product() {
           Submit
         </button>
           </div>
+        <p className="is-flex is-align-items-center is-justify-content-center" style={{color: 'red', marginBottom: '2rem'}}>{info}</p>
           </div>
         </div>
       </>
