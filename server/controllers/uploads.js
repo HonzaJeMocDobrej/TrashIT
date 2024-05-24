@@ -121,6 +121,7 @@ exports.updateUpload = async (req, res) => {
 // S láskou Fida <3
 exports.deleteUpload = async (req, res) => {
     try {
+        console.log(req.body)
         if(!req.body.password) return res.status(400).send({msg: "Something is missing"});
         
         const data = await Uploads.findById(req.params.id);

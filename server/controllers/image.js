@@ -26,6 +26,7 @@ const filter = (req, file, cb) => {
     file.mimetype === "image/png" ||
     file.mimetype === "image/jpg" ||
     file.mimetype === "image/webm" ||
+    file.mimetype === "image/webp" ||
     file.mimetype === "image/gif" ||
     file.mimetype === "image/svg+xml"
     ? cb(null, true)

@@ -21,7 +21,9 @@ function Products() {
 
   useEffect(() => {
     load();
+    console.log(uploads)
   }, []);
+
 
   if(isLoaded === null){
     return (
@@ -36,6 +38,22 @@ function Products() {
       </>
     )
   }
+
+  if(!uploads){
+    return (
+      <>
+      <StickySearchMenu />
+      <div className="main-div">
+          <h1>No nic, je to over</h1>
+          <Link to={"/upload"}>
+              <button>přidat inzerát</button>
+          </Link>
+      </div>
+      </>
+    )
+  }
+
+  
 
   return (
     <>
