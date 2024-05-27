@@ -1,4 +1,5 @@
 import StickySearchMenu from "../../components/StickySearchMenu/StickySearchMenu";
+import StickyButtonMenu from "../../components/StickyButtonMenu/StickyButtonMenu";
 import { useEffect, useState } from "react";
 import { getUpload } from "../../models/uploads";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -75,8 +76,8 @@ function Product() {
   if (uploads) {
     return (
       <>
-      <StickySearchMenu />
-        <div className="container is-flex is-justify-content-center" style={{paddingTop: '3.5rem'}}>
+      <StickyButtonMenu />
+        <div className="container is-flex is-justify-content-center" style={{paddingTop: '4.5rem'}}>
           <div className="box is-flex is-justify-content-center is-align-items-start">
             <img src={rightImg} alt="" style={{height: '40rem', maxWidth: '50rem', padding: '2rem', borderRadius: '3rem'}} />
           </div>
@@ -89,7 +90,7 @@ function Product() {
             <p className="subtitle is-5" style={{marginTop: '5rem'}}>{uploads.description}</p>
             <div className="imageCont is-flex is-justify-content-left is-align-items-center" style={{gap: '2%', marginTop: '2rem'}}>
               <p className="control has-icons-left formInput">
-                <input placeholder="Enter password for deleting this post" name="password" type="text" className="input" onChange={(e) => handleChange(e)}/>
+                <input placeholder="Enter password for deleting this post" name="password" type="password" className="input" onChange={(e) => handleChange(e)}/>
                 <span
                   className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
                   style={{

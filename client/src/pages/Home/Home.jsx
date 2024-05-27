@@ -58,7 +58,7 @@ function Home() {
   return (
     <>
     <StickyButtonMenu />
-    <div className="grid is-col-min-11" style={{paddingTop: '3.5rem'}}>
+      <div className="grid is-col-min-11" style={{paddingTop: '3.5rem', paddingBottom: '1.5rem'}}>
       <Card
         icon={'desktop_windows'}
         title={'Desktop'}

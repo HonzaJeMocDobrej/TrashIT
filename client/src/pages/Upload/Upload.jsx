@@ -40,7 +40,7 @@ export default function Upload() {
     const nameArr = name.split('.')
     console.log(nameArr)
     if(nameArr[1] =="png" || nameArr[1] =="jpg" || nameArr[1] =="jpeg" || nameArr[1] =="webm" 
-      || nameArr[1] =="gif" || nameArr[1] =="svg+xml" || nameArr[1] =="webp"){
+      || nameArr[1] =="gif" || nameArr[1] =="svg" || nameArr[1] =="webp" || nameArr[1] =="PNG"){
           setImgData(e.target.files[0])
           setImagePath(URL.createObjectURL(e.target.files[0]))
       }
@@ -57,12 +57,18 @@ export default function Upload() {
     const formDataToSend = new FormData();
 
     for (const [key, value] of Object.entries(formData)) {
-        formDataToSend.append(key, value);
+        if(key === "category"){
+          formDataToSend.append(key, value.toLowerCase());
+        }
+        else formDataToSend.append(key, value);
     }
     formDataToSend.append('imageFile', imgInputRef.current.files[0])
+
     const upload = await postUpload(formDataToSend);
     if(upload.status === 400 || upload.status === 500) return setInfo(upload.msg)
-    if (upload.status === 201) return navigate("/");
+    if (upload.status === 201){
+      return navigate("/");
+    } 
     setInfo(upload.msg);
   };
 

@@ -24,7 +24,7 @@ function Products() {
     console.log(uploads)
   }, []);
 
-
+/*
   if(isLoaded === null){
     return (
       <>
@@ -52,8 +52,7 @@ function Products() {
       </>
     )
   }
-
-  
+  */
 
   return (
     <>
@@ -74,7 +73,7 @@ function Products() {
         isLoaded ? (
           uploads.map((upload, index) => <ProductCard key = {index} {...upload}/>)
         ) : (
-          <p>načítám inzeráty</p>
+          <p style={{marginTop: '3.5rem', textAlign: "center", fontSize: "30px"}}>Loading...</p>
         )
       }
         </div>
