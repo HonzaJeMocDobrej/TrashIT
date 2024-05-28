@@ -6,8 +6,9 @@ import { Link, useParams } from "react-router-dom";
 
 function Products() {
   const { category } = useParams();
-  const [uploads, setUploads] = useState();
+  const [uploads, setUploads] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
+  const [query, setQuery] = useState("");
 
   const load = async () => {
     const data = await getUploads();
@@ -23,6 +24,14 @@ function Products() {
     load();
     console.log(uploads)
   }, []);
+
+  useEffect(() => {
+    load();
+  }, [setQuery]);
+
+  const filteredUploads = uploads
+    .filter((upload) => upload.name.toLowerCase().includes(query.toLowerCase()))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
 /*
   if(isLoaded === null){
@@ -56,7 +65,7 @@ function Products() {
 
   return (
     <>
-    <StickySearchMenu />
+    <StickySearchMenu query={query} setQuery={setQuery}/>
       <div className="fixed-grid has-1-cols">
         <div className="grid" style={{marginTop: '3.5rem', paddingBottom: '1rem'}}>
           {/* <ProductCard
@@ -71,7 +80,7 @@ function Products() {
           /> */}
           {
         isLoaded ? (
-          uploads.map((upload, index) => <ProductCard key = {index} {...upload}/>)
+          filteredUploads.map((upload, index) => <ProductCard key = {index} {...upload}/>)
         ) : (
           <p style={{marginTop: '3.5rem', textAlign: "center", fontSize: "30px"}}>Loading...</p>
         )

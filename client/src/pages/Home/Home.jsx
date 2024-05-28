@@ -112,8 +112,8 @@ function Home() {
         title={'Phone'}
       />
       <Card
-        icon={'cable'}
-        title={'Cable'}
+        icon={'mic'}
+        title={'Microphone'}
       />
       <Card
         icon={'joystick'}
@@ -128,8 +128,32 @@ function Home() {
         title={'Printer'}
       />
       <Card
-        icon={'cloud'}
+        icon={'mode_fan'}
         title={'Cooling'}
+      />
+      <Card
+        icon={'cable'}
+        title={'Cable'}
+      />
+      <Card
+        icon={'photo_camera'}
+        title={'Camera'}
+      />
+      <Card
+        icon={'microwave'}
+        title={'Appliances'}
+      />
+      <Card
+        icon={'tv_gen'}
+        title={'TV'}
+      />
+      <Card
+        icon={'equalizer'}
+        title={'Music'}
+      />
+      <Card
+        icon={'shopping_bag'}
+        title={'Extras'}
       />
     </div>
     </>
