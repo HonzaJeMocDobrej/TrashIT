@@ -8,6 +8,7 @@ router.get('/', uploadsController.getUploads);
 
 /* Get user upload. */
 router.get('/:id', uploadsController.getUpload);
+router.get('/:category/search', uploadsController.searchForUpload);
 
 /* Create user upload. */
 router.post('/', uploadsController.postUpload);
