@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 
-function StickySearchMenu() {
+function StickySearchMenu({query, setQuery}) {
 
 
   let navigate = useNavigate()
@@ -20,7 +20,7 @@ function StickySearchMenu() {
         <div className="column is-one-fifth">
           <div className="field">
             <p className="control has-icons-left">
-              <input type="text" className="input" placeholder="Search..."/>
+              <input type="text" className="input" placeholder="Search..." value={query} onChange={(e) => setQuery(e.target.value)}/>
               <span
                 className="material-symbols-outlined icon is-left is-flex is-justify-content-center is-align-items-center"
                 style={{

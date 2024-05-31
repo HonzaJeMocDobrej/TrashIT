@@ -1,27 +1,45 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const getUploads = async () => {
-    const req = await fetch("http://localhost:3000/uploads", {
+  const req = await fetch("http://localhost:3000/uploads", {
     method: "GET",
     headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        },
-    });
-    const data = await req.json();
-    return{
-        status: req.status,
-        payload: data.payload,
-        msg: data.msg
-    }
-}
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await req.json();
+  return {
+    status: req.status,
+    payload: data.payload,
+    msg: data.msg,
+  };
+};
 
 export const getUpload = async (id) => {
-    const req = await fetch(`http://localhost:3000/uploads/${id}`, {
+  const req = await fetch(`http://localhost:3000/uploads/${id}`, {
     method: "GET",
     headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await req.json();
+  return {
+    status: req.status,
+    payload: data.payload,
+    msg: data.msg,
+  };
+};
+
+/*
+
+export const getSearchedUploads = async (category, searchedDataUploads) => {
+    const req = await fetch(`http://localhost:3000/uploads/${category}/search`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
         },
     });
     const data = await req.json();
@@ -32,31 +50,52 @@ export const getUpload = async (id) => {
     }
 }
 
+*/
+
+export const getSearchedUploads = async (category, searchedDataUploads) => {
+  const dataToSend = { search: searchedDataUploads };
+  console.log(dataToSend);
+  const req = await fetch(`http://localhost:3000/uploads/${category}/search`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dataToSend),
+  });
+  const data = await req.json();
+  return {
+    status: req.status,
+    payload: data.payload,
+    msg: data.msg,
+  };
+};
+
 export const postUpload = async (formData) => {
-    const req = await fetch("http://localhost:3000/uploads", {
-        method: "POST",
-        body: formData
-      });
-      const data = await req.json();
-      return{
-        status: req.status,
-        payload: data.payload,
-        msg: data.msg
-      }
-}
+  const req = await fetch("http://localhost:3000/uploads", {
+    method: "POST",
+    body: formData,
+  });
+  const data = await req.json();
+  return {
+    status: req.status,
+    payload: data.payload,
+    msg: data.msg,
+  };
+};
 
 export const updateUpload = async (id, formData) => {
-    const req = await fetch(`http://localhost:3000/uploads/${id}`, {
-        method: "PUT",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-    });
-    const data = await req.json();
-    return createUploadPayload(req, data);
-}
+  const req = await fetch(`http://localhost:3000/uploads/${id}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+  const data = await req.json();
+  return createUploadPayload(req, data);
+};
 
 // export const deleteUpload = async (id, formData) => {
 //     const req = await fetch(`http://localhost:3000/uploads/${id}`, {
@@ -71,24 +110,24 @@ export const updateUpload = async (id, formData) => {
 //       }
 //   };
 
-  export const deleteUpload = async (id, formData) => {
-    console.log(formData)
-    const res = await axios.delete(`http://localhost:3000/uploads/${id}`, {
-        data: {
-            password: formData.password
-        }
-    })
-    return {
-        msg: res.data.msg,
-        data: res.data.payload,
-        status: res.status,
-    }
-  }
+export const deleteUpload = async (id, formData) => {
+  console.log(formData);
+  const res = await axios.delete(`http://localhost:3000/uploads/${id}`, {
+    data: {
+      password: formData.password,
+    },
+  });
+  return {
+    msg: res.data.msg,
+    data: res.data.payload,
+    status: res.status,
+  };
+};
 
-  const createUploadPayload = (req, data) => {
-    return {
-        msg: data.msg,
-        data: data.payload,
-        status: req.status
-    };
+const createUploadPayload = (req, data) => {
+  return {
+    msg: data.msg,
+    data: data.payload,
+    status: req.status,
+  };
 };

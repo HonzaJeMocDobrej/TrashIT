@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import { getUploads } from "../../models/uploads";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import StickySearchMenu from "../../components/StickySearchMenu/StickySearchMenu";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getSearchedUploads } from "../../models/uploads";
 
 function Products() {
   const { category } = useParams();
-  const [uploads, setUploads] = useState();
+  const [uploads, setUploads] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
+  const [query, setQuery] = useState("");
+  const [searchedUploads, setSearchedUploads] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const load = async () => {
     const data = await getUploads();
@@ -19,10 +23,27 @@ function Products() {
     setLoaded(null);
   };
 
+  const search = async () => {
+    setIsSearching(true);
+    const data = await getSearchedUploads(category, query);
+    if(data.status === 200){
+      setSearchedUploads(data.payload);
+    }
+    else setLoaded(null);
+  };
+
   useEffect(() => {
     load();
     console.log(uploads)
   }, []);
+
+  useEffect(() => {
+    console.log(query)
+    if(query) search();
+    else setIsSearching(false);
+  }, [query]);
+
+  const displayUploads = isSearching ? searchedUploads : uploads;
 
 /*
   if(isLoaded === null){
@@ -56,7 +77,7 @@ function Products() {
 
   return (
     <>
-    <StickySearchMenu/>
+    <StickySearchMenu query={query} setQuery={setQuery}/>
       <div className="fixed-grid has-1-cols">
         <div className="grid" style={{marginTop: '3.5rem', paddingBottom: '1rem'}}>
           {/* <ProductCard
@@ -70,10 +91,11 @@ function Products() {
             price='20 000'
           /> */}
           {
-        isLoaded ? (
-          uploads.map((upload, index) => <ProductCard key = {index} {...upload}/>)
+        
+        isLoaded  ? (
+          displayUploads.map((upload, index) => <ProductCard key={index} {...upload} />)
         ) : (
-          <p style={{marginTop: '3.5rem', textAlign: "center", fontSize: "30px"}}>Loading...</p>
+          <p style={{ marginTop: '3.5rem', textAlign: "center", fontSize: "30px" }}>Loading...</p>
         )
       }
         </div>

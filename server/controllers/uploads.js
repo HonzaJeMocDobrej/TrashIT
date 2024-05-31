@@ -37,6 +37,7 @@ exports.getUpload = async (req, res) => {
 exports.searchForUpload = async (req, res) => {
      try {
         const {search} = req.body
+        console.log(search)
         const {category} = req.params
         if (!search || !category) return res.status(400).send({msg: 'Something is missing'})
         const result = await Uploads.find({name: new RegExp(search, "i"), category: category});
