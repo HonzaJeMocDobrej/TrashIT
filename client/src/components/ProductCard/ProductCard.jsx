@@ -20,6 +20,8 @@ function ProductCard(props) {
       imgChecker(imagePath, notFoundImg, setRightImg)
     }, [])
 
+
+    //zmenit imgChecker
   return (
     <>
         <div className="cell">
@@ -28,7 +30,7 @@ function ProductCard(props) {
                 <div className="block is-flex" style={{margin: 0, flex: 6, gap: '3rem'}}>
                   <figure className="image">
                     <img
-                      src={rightImg}
+                      src={imagePath}
                       alt=""
                     />
                   </figure>

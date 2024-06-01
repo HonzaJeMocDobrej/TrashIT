@@ -34,6 +34,26 @@ exports.getUpload = async (req, res) => {
       }
 };
 
+exports.searchForUpload = async (req, res) => {
+     try {
+        const {search} = req.body
+        console.log(search)
+        const {category} = req.params
+        if (!search || !category) return res.status(400).send({msg: 'Something is missing'})
+        const result = await Uploads.find({name: new RegExp(search, "i"), category: category});
+        if(result){
+            return res.status(200).send({
+                msg: "Upload found!",
+                payload: result,
+            })
+        }
+        res.status(500).send({msg: "Something went wrong"});
+      } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+      }
+}
+
 const uploadFile = imageController.upload.single("imageFile");
 
 const saveFileIntoFolder = (req, res, next) => {

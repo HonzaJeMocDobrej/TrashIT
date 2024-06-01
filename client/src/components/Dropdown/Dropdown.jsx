@@ -85,9 +85,9 @@ function Dropdown(props) {
               {" "}
               Phone{" "}
             </a>
-            <a onClick={handleDropdownItemClick} name="Cable" className="dropdown-item">
+            <a onClick={handleDropdownItemClick} name="Microphone" className="dropdown-item">
               {" "}
-              Cable{" "}
+              Microphone{" "}
             </a>
             <a onClick={handleDropdownItemClick} name="Games" className="dropdown-item">
               {" "}
@@ -104,6 +104,30 @@ function Dropdown(props) {
             <a onClick={handleDropdownItemClick} name="Cooling" className="dropdown-item">
               {" "}
               Cooling{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Cable" className="dropdown-item">
+              {" "}
+              Cable{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Camera" className="dropdown-item">
+              {" "}
+              Camera{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Appliances" className="dropdown-item">
+              {" "}
+              Appliances{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Tv" className="dropdown-item">
+              {" "}
+              Tv{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Music" className="dropdown-item">
+              {" "}
+              Music{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Extras" className="dropdown-item">
+              {" "}
+              Extras{" "}
             </a>
           </div>
         </div>
