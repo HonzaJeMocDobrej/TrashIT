@@ -6,7 +6,7 @@ import Button from "../../components/Button/Button";
 
 export default function Upload() {
   const [formData, setFormData] = useState();
-  const [imgData, setImgData] = useState()
+  const [imgData, setImgData] = useState([])
   const [dropdownDisplay, setDropdownDisplay] = useState('Select a category')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [imagePath, setImagePath] = useState('')
@@ -34,15 +34,19 @@ export default function Upload() {
     //console.log(formData)
   }
 
-  const handleImageChange = (e) => {
-    console.log(e.target.files[0].name);
+  const handleImageChange =  (e) => {
+    console.log(e.target.files);
     const name = e.target.files[0].name
     const nameArr = name.split('.')
     console.log(nameArr)
     if(nameArr[1] =="png" || nameArr[1] =="jpg" || nameArr[1] =="jpeg" || nameArr[1] =="webm" 
       || nameArr[1] =="gif" || nameArr[1] =="svg" || nameArr[1] =="webp" || nameArr[1] =="PNG"){
-          setImgData(e.target.files[0])
-          setImagePath(URL.createObjectURL(e.target.files[0]))
+        setImgData(prev => {
+          return [
+            ...prev,
+            e.target.files[0]
+          ]
+        })
       }
     else return setInfo("Wrong file format");
     //dodelat checkovani spravnych koncovek
@@ -97,6 +101,14 @@ useEffect(()=>{
   setInfo("");
 },[formData]);
 
+useEffect(()=>{
+  const rightImgPathArr = imgData.map(item => {
+    return URL.createObjectURL(item)
+  })
+  console.log(rightImgPathArr)
+  setImagePath(rightImgPathArr)
+},[imgData]);
+
   return (
     <>
       <div
@@ -135,7 +147,12 @@ useEffect(()=>{
         />
         {imagePath ? 
         <div className="uploadImageCont">
-          <img src={imagePath}></img>
+           {/* <img src={imagePath}></img> */}
+           {
+            imagePath.map(element => {
+              return <img src={element} alt="" key={element} />
+            })
+          }
         </div> : 
         null}
         <div className="imageCont is-flex is-justify-content-left is-align-items-center" style={{gap: '5%', marginTop: '2rem'}}>
