@@ -2,6 +2,7 @@ const imageController = require("./image");
 const Uploads = require("../models/uploads")
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const fs = require('fs');
 
 exports.getUploads = async (req, res) => {
   try {
@@ -138,8 +139,7 @@ exports.updateUpload = async (req, res) => {
     }
 }
 
-// S láskou Fida <3
-exports.deleteUpload = async (req, res) => {
+const deleteUpload = async (req, res, next) => {
     try {
         console.log(req.body)
         if(!req.body.password) return res.status(400).send({msg: "Something is missing"});
@@ -150,9 +150,16 @@ exports.deleteUpload = async (req, res) => {
         if(!match) return res.status(400).send({msg: "Passwords do not match"});
         const deletedUpload = await Uploads.findByIdAndDelete(req.params.id);
 
-        if(!deletedUpload) return res.status(500).send({msg: "Something went wrong"});
-        return res.status(200).send({msg: "Succesful", payload: deletedUpload});
+        const name = deletedUpload.imagePath.split('/');
+        console.log(name[4])
+        fs.unlink(__dirname + `/../public/img/${name[4]}`, (err) => {
+            if(err) throw err;
+            console.log("Image deleted")
+        })
 
+        if(!deletedUpload) return res.status(500).send({msg: "Something went wrong"});
+        console.log(deletedUpload)
+        return res.status(200).send({msg: "Succesful", payload: deletedUpload});
     } catch (error) {
         res.status(500).send({
             error,
@@ -180,4 +187,5 @@ exports.deleteAllUploads = async (req, res) => {
 }
 
 exports.postUpload = [saveFileIntoFolder, saveIntoDb];
+exports.deleteUpload = [deleteUpload]
 
