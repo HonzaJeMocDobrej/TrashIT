@@ -58,7 +58,7 @@ function Home() {
   return (
     <>
     <StickyButtonMenu />
-    <div className="grid is-col-min-11" style={{paddingTop: '3.5rem'}}>
+      <div className="grid is-col-min-11" style={{paddingTop: '3.5rem', paddingBottom: '1.5rem'}}>
       <Card
         icon={'desktop_windows'}
         title={'Desktop'}
@@ -107,7 +107,54 @@ function Home() {
         icon={'router'}
         title={'Networking'}
       />
-  
+      <Card
+        icon={'smartphone'}
+        title={'Phone'}
+      />
+      <Card
+        icon={'mic'}
+        title={'Microphone'}
+      />
+      <Card
+        icon={'joystick'}
+        title={'Games'}
+      />
+      <Card
+        icon={'power'}
+        title={'PowerSupply'}
+      />
+      <Card
+        icon={'print'}
+        title={'Printer'}
+      />
+      <Card
+        icon={'mode_fan'}
+        title={'Cooling'}
+      />
+      <Card
+        icon={'cable'}
+        title={'Cable'}
+      />
+      <Card
+        icon={'photo_camera'}
+        title={'Camera'}
+      />
+      <Card
+        icon={'microwave'}
+        title={'Appliances'}
+      />
+      <Card
+        icon={'tv_gen'}
+        title={'TV'}
+      />
+      <Card
+        icon={'equalizer'}
+        title={'Music'}
+      />
+      <Card
+        icon={'shopping_bag'}
+        title={'Extras'}
+      />
     </div>
     </>
   )

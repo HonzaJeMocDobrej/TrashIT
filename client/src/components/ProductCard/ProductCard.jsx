@@ -1,16 +1,27 @@
 /* eslint-disable react/prop-types */
 
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import notFoundImg from '../../../public/imgNotFound.png'
+import { imgChecker } from "../../functions/imgChecker"
 
 function ProductCard(props) {
 
-    const {name, description, imagePath, price} = props
+    const {name, description, imagePath, price, _id} = props
     const navigate = useNavigate()
+    const [rightImg, setRightImg] = useState()
 
     const handleClickNav = () => {
-      navigate(`/products/${1}`)
+      navigate(`/products/${_id}`)
     }
 
+    useEffect(() => {
+      console.log(_id)
+      imgChecker(imagePath, notFoundImg, setRightImg)
+    }, [])
+
+
+    //zmenit imgChecker
   return (
     <>
         <div className="cell">

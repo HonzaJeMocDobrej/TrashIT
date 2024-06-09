@@ -11,11 +11,24 @@ const storage = multer.diskStorage({
 });
 
 const filter = (req, file, cb) => {
+     const {name, contact, location, nameOfSeller, price, description, category, password, passwordAuth} = req.body;
+    if(!name, !contact, !location, !nameOfSeller, !price, !description, !category, !password, !passwordAuth)
+        return cb(new Error("Something is missing"))
+
+    
+    if(password != passwordAuth) return cb(new Error("password should be the same"))
+
+    if (typeof contact != "string" )return cb(new Error("contact should be type number"))
+    if (typeof price != "string") return cb(new Error("price should be type number"))
+
+
     file.mimetype === "image/jpeg" ||
     file.mimetype === "image/png" ||
     file.mimetype === "image/jpg" ||
     file.mimetype === "image/webm" ||
-    file.mimetype === "image/gif" 
+    file.mimetype === "image/webp" ||
+    file.mimetype === "image/gif" ||
+    file.mimetype === "image/svg+xml"
     ? cb(null, true)
     : cb(null, false);
 };

@@ -1,20 +1,14 @@
 import { useRef, useState } from "react";
 
 /* eslint-disable react/prop-types */
-function Dropdown() {
+function Dropdown(props) {
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-    const [dropdownDisplay, setDropdownDisplay] = useState('Select a category')
+    const {handleDropdownItemClick, dropdownDisplay, isDropdownOpen, setIsDropdownOpen} = props
+
 
     const handleDropdownButtonClick = (e) => {
          setIsDropdownOpen(prev => !prev)
          e.preventDefault()
-    }
-
-    const handleDropdownItemClick = (e) => {
-        console.log(e.target.name)
-        setDropdownDisplay(e.target.name)
-        setIsDropdownOpen(false)
     }
 
   return (
@@ -86,6 +80,54 @@ function Dropdown() {
             </a> <a onClick={handleDropdownItemClick} name="Networking" className="dropdown-item">
               {" "}
               Networking{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Phone" className="dropdown-item">
+              {" "}
+              Phone{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Microphone" className="dropdown-item">
+              {" "}
+              Microphone{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Games" className="dropdown-item">
+              {" "}
+              Games{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="PowerSupply" className="dropdown-item">
+              {" "}
+              PowerSupply{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Printer" className="dropdown-item">
+              {" "}
+              Printer{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Cooling" className="dropdown-item">
+              {" "}
+              Cooling{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Cable" className="dropdown-item">
+              {" "}
+              Cable{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Camera" className="dropdown-item">
+              {" "}
+              Camera{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Appliances" className="dropdown-item">
+              {" "}
+              Appliances{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Tv" className="dropdown-item">
+              {" "}
+              Tv{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Music" className="dropdown-item">
+              {" "}
+              Music{" "}
+            </a>
+            <a onClick={handleDropdownItemClick} name="Extras" className="dropdown-item">
+              {" "}
+              Extras{" "}
             </a>
           </div>
         </div>

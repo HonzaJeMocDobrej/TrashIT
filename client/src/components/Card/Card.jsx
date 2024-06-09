@@ -8,7 +8,8 @@ function Card(props) {
 
     const handleClick = () => {
       console.log('Banger')
-      navigate('/products')
+      const lowercaseTitle = title.toLowerCase()
+      navigate(`/${lowercaseTitle}`)
     }
 
   return (
